@@ -1,5 +1,6 @@
 // src/pages/EventCreation.js
 import React, { useState } from 'react';
+//import './EventCreation.css'; // Optional: if you want to isolate Event Creation-specific styles
 
 const EventCreation = () => {
     const [eventName, setEventName] = useState('');
@@ -19,7 +20,7 @@ const EventCreation = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h2>Create Event</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -28,6 +29,7 @@ const EventCreation = () => {
                         type="text"
                         value={eventName}
                         onChange={(e) => setEventName(e.target.value)}
+                        placeholder="Enter event name"
                     />
                 </div>
                 <div>
@@ -44,6 +46,7 @@ const EventCreation = () => {
                         type="text"
                         value={eventLocation}
                         onChange={(e) => setEventLocation(e.target.value)}
+                        placeholder="Enter event location"
                     />
                 </div>
                 <div>
@@ -51,6 +54,7 @@ const EventCreation = () => {
                     <textarea
                         value={eventDescription}
                         onChange={(e) => setEventDescription(e.target.value)}
+                        placeholder="Enter event description"
                     ></textarea>
                 </div>
                 <button type="submit">Create Event</button>
