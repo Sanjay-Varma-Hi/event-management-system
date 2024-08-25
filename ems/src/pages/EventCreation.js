@@ -1,27 +1,45 @@
 // src/pages/EventCreation.js
 import React, { useState } from 'react';
-//import './EventCreation.css'; // Optional: if you want to isolate Event Creation-specific styles
+import axios from 'axios';
+//import './EventCreation.css';
 
 const EventCreation = () => {
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventDescription, setEventDescription] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle event creation logic here
-        console.log({
-            eventName,
-            eventDate,
-            eventLocation,
-            eventDescription,
-        });
+        setLoading(true);
+
+        try {
+            await axios.post('/api/create-event', {
+                eventName,
+                eventDate,
+                eventLocation,
+                eventDescription,
+            }); // Mock API endpoint
+            setSuccess(true);
+        } catch (error) {
+            console.error('Error creating event:', error);
+        } finally {
+            setLoading(false);
+        }
+
+        // Clear form
+        setEventName('');
+        setEventDate('');
+        setEventLocation('');
+        setEventDescription('');
     };
 
     return (
         <div className="container">
             <h2>Create Event</h2>
+            {success && <p>Event created successfully!</p>}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Event Name:</label>
@@ -57,7 +75,9 @@ const EventCreation = () => {
                         placeholder="Enter event description"
                     ></textarea>
                 </div>
-                <button type="submit">Create Event</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Creating...' : 'Create Event'}
+                </button>
             </form>
         </div>
     );

@@ -14,6 +14,7 @@ const Header = () => {
                         <li><Link to="/dashboard">Dashboard</Link></li>
                         <li><Link to="/create-event">Create Event</Link></li>
                         <li><Link to="/rsvp">RSVP</Link></li>
+                        <li><Link to="/login">Logout</Link></li>
                     </ul>
                 </nav>
             </div>
